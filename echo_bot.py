@@ -4,7 +4,7 @@ from aiogram.types import Message
 
 
 # Токен Telegram бота
-BOT_TOKEN = '7173910820:AAFZMLTsIZ2LYSrTVPByULlAZLgSn0Lao7Q'
+BOT_TOKEN = 'TOKEN'
 
 # Создаём объекты бота и диспетчера
 bot = Bot(token=BOT_TOKEN)
