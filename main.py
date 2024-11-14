@@ -8,17 +8,19 @@ from config_data.config import Config, load_config
 from handlers import other_handlers, user_handlers
 from keyboards.main_menu import set_main_menu
 
-# Инициализируем логер
+# Инициализируем логгер
 logger = logging.getLogger(__name__)
 
-# Функция конфигурации и запуска бота
+
+# Функция конфигурирования и запуска бота
 async def main():
-    # Кофигурируем логирование
+    # Конфигурируем логирование
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         format='%(filename)s:%(lineno)d #%(levelname)-8s '
-        '[%(asctime)s] - %(name)s - %(message)s')
-    # Выводим в консоль информацию о начале запуске бота
+               '[%(asctime)s] - %(name)s - %(message)s')
+
+    # Выводим в консоль информацию о начале запуска бота
     logger.info('Starting bot')
 
     # Загружаем конфиг в переменную config
@@ -31,15 +33,16 @@ async def main():
     )
     dp = Dispatcher()
 
-    # Настраиваем главное меню
+    # Настраиваем главное меню бота
     await set_main_menu(bot)
 
-    # Регистрируем роутер и диспетчер
+    # Регистриуем роутеры в диспетчере
     dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
 
-    # Пропускаем накопившиеся апдейты и запускам пулинг
+    # Пропускаем накопившиеся апдейты и запускаем polling
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
+
 
 asyncio.run(main())
